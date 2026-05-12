@@ -23,9 +23,9 @@ public abstract class BaseUiTest {
 
     @BeforeEach
     void setUpDriver() {
-        // HtmlUnitDriver — headless без зависимости от Chrome.
+        // HtmlUnitDriver - headless без зависимости от Chrome.
         driver = new HtmlUnitDriver(true);
-        // implicitlyWait не задаю — все ожидания через WebDriverWait
+        // implicitlyWait не задаю - все ожидания через WebDriverWait
     }
 
     @AfterEach
@@ -33,9 +33,7 @@ public abstract class BaseUiTest {
         if (driver != null) driver.quit();
     }
 
-    /**
-     * Расширение JUnit 5, которое делает скриншот, если тест упал.
-     */
+     // Расширение JUnit 5, которое делает скриншот, если тест упал
     static class ScreenshotOnFailureExtension implements TestWatcher {
         @Override
         public void testFailed(ExtensionContext context, Throwable cause) {
