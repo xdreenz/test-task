@@ -1,0 +1,36 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    # Запуск тестов (HtmlUnitDriver headless по умолчанию)
+    - name: Run tests
+      run: mvn -B test
+
+    # Сохраняю артефакты только при падении тестов
+    - name: Upload failure artifacts
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-failure-artifacts
+        path: |
+          target/surefire-reports/
+          target/screenshots/
+          target/api-logs/
